@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { invoke } from '@tauri-apps/api/tauri'
 
 import './App.css'
-import { DndExample } from './Dnd'
 
 function App() {
   const [msgFromRust, setMsgFromRust] = useState('')
@@ -31,7 +30,7 @@ function App() {
         >{isDndView ? '💧' : '🔥'}</button>
       </div>
       {isDndView ? (
-        <DndExample />
+        <App />
       ) : (
         <header className='App-header'>
           <div className='component-wrapper'>

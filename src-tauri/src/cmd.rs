@@ -2,6 +2,8 @@ use serde::Deserialize;
 use std::str;
 use std::process::{Command};
 use tauri::command;
+use rand::Rng;
+use tch::{Device, Kind, Tensor};
 
 #[derive(Debug, Deserialize)]
 pub struct RequestBody {
@@ -11,13 +13,19 @@ pub struct RequestBody {
 
 #[command]
 pub fn hello_world_test(event: String) -> Option<String> {
-  let stdout = hello_world(event);
-  Some(stdout)
+  let mut rng = rand::thread_rng();
+  let n1: u8 = rng.gen();
+  let t = Tensor::from_slice(&[3, 1, 4, 1, 5]);
+  let t = t * 2;
+  let t2 = Tensor::randn([4, 4], (Kind::Double, Device::Cpu));
+  t.print();
+  t2.print();
+  Some(format!("{t2}"))
 }
 
 #[command]
 pub fn ls_test(event: String) -> Option<String> {
-  let stdout = ls(event);
+  let stdout = "ho".to_string();
   Some(stdout)
 }
 
