@@ -64,23 +64,16 @@ async fn do_async_stuff() -> Result<(), Box<dyn Error>> {
   let tool_path = Path::new("tools");
   fs::create_dir_all(tool_path)?;
   println!("Downloading the libtorch");
-  if !Path::new("tools/libtorch.zip").exists() {
-      download_files("https://download.pytorch.org/libtorch/cpu/libtorch-win-shared-with-deps-2.1.0%2Bcpu.zip", "tools/libtorch.zip").await?;
-  };
-  if !Path::new("tools/Appacker_v1.3.11.exe").exists() {
-      download_files(
-          "https://github.com/SerGreen/Appacker/releases/download/v1.3.11/Appacker_v1.3.11.exe",
-          "tools/Appacker_v1.3.11.exe",
-      )
-      .await?;
-  };
-  println!("Extracting the file");
   if !Path::new("tools/libtorch").exists() {
+      download_files("https://download.pytorch.org/libtorch/cpu/libtorch-win-shared-with-deps-2.1.0%2Bcpu.zip", "tools/libtorch.zip").await?;
+      println!("Extracting the file");
+      if !Path::new("tools/libtorch").exists() {
       zip_extract(
           &PathBuf::from("tools/libtorch.zip"),
           &PathBuf::from("tools/"),
       )?;
   }
+  };
   Ok(())
 }
 
